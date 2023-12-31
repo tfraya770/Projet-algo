@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
+#include "raylib.h"
+
 typedef struct liste liste;
 struct liste {
     int info;
@@ -46,16 +48,8 @@ void affiche_listebid(liste *tete) {
     }
 }
 
-int main() {
-    liste *head = NULL;
-    int n;
-
-    printf("Enter the number of elements: ");
-    scanf("%d", &n); 
-    srand(time(NULL));
-
-    create_listebid(&head, n);
-    affiche_listebid(head);
+int main(void) {
+   
 
     return 0;
 }

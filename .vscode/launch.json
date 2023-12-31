@@ -60,8 +60,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/PC/Desktop/ii",
-      "program": "c:/Users/PC/Desktop/ii/build/Debug/outDebug",
+      "cwd": "c:/Users/PC/Desktop/Projet-algo",
+      "program": "c:/Users/PC/Desktop/Projet-algo/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
