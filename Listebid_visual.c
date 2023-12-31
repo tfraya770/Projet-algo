@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <time.h> 
 #include "raylib.h"
-#define MAX_OPTIONS 5
+#define MAX_OPTIONS 6
+#define BOX_WIDTH 60
+#define BOX_HEIGHT 40
 typedef struct liste liste;
 struct liste {
     int info;
@@ -47,20 +49,39 @@ void affiche_listebid(liste *tete) {
         p = p->suiv;
     }
 }
+void drawDoublyLinkedList(liste *tete) {
+    int posX = 100;
+    int posY = 200;
+    while (tete != NULL) {
+        DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, PINK);
+        DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK);
+        DrawText(TextFormat("%d", tete->info), posX + 10, posY + 10, 20, BLACK);
+        if (tete->suiv != NULL) {
+            DrawLine(posX + BOX_WIDTH, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, BLACK);
+            DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 5},
+                         (Vector2){posX + BOX_WIDTH + 20, posY + BOX_HEIGHT - 5},
+                         (Vector2){posX + BOX_WIDTH + 30, posY + BOX_HEIGHT / 2}, BLACK);
+        }
+        posX += BOX_WIDTH + 40; // Adjust for spacing between boxes
 
+        tete = tete->suiv;
+    }
+}
 int main(void) {
    
-    const int screenWidth = 800;
-    const int screenHeight = 450;
-
+    const int screenWidth = 1200;
+    const int screenHeight = 650;
+liste *head = NULL;
     InitWindow(screenWidth, screenHeight, "doubly linked list");
-
+ SetTargetFPS(60);
     const char* options[MAX_OPTIONS] = { "Create", "Search", "Insert", "Delete", "Sort" };
     int selectedOption = 0;
     bool displayMenu = true;
+    bool displayList = false;
+     bool returnToMenu = false;
 
-    int inputNumber = 0;
-    bool enteringNumber = false;
+    int  numberOfElements= 0;
+   bool keyPressed = false;
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -90,33 +111,54 @@ int main(void) {
             if (IsKeyPressed(KEY_ENTER)) {
                 if (selectedOption == 0) {
                     displayMenu = false;
-                    enteringNumber = true;
+                    displayList = true;
+                    returnToMenu = true;
+                }
+                 else if (selectedOption == 5) {
+                    CloseWindow();
+                    return 0;
                 }
             }
         }
-
-        if (enteringNumber) {
-            const int boxSize = 100;
-            const int boxX = screenWidth / 2 - boxSize / 2;
-            const int boxY = screenHeight / 2 - boxSize / 2;
-            const int textSize = 20;
-
-            
-            DrawText("Enter the number of elements:", screenWidth / 2 - MeasureText("Enter the number of elements:", textSize) / 2,
-                     boxY - 30, textSize, BLACK);
-
-            DrawRectangle(boxX, boxY, boxSize, boxSize, BLUE);
-
-           
-            int key = GetKeyPressed();
-            if (key >= KEY_ZERO && key <= KEY_NINE) {
-                inputNumber = inputNumber * 10 + (key - KEY_ZERO);
+else if (displayList) {
+            if (!keyPressed) {
+                DrawText("Enter the number of elements (1-9):", 50, 50, 20, BLACK);
+                DrawText(TextFormat("Number of elements: %d", numberOfElements), 50, 100, 20, BLACK);
+                if (returnToMenu) {
+                    DrawText("Press 'M' to return", screenWidth - 240, 20, 20, BLACK);
+                }
             }
 
-            
-            DrawText(TextFormat("%d", inputNumber), boxX + boxSize / 2 - MeasureText(TextFormat("%d", inputNumber), 40) / 2,
-                     boxY + boxSize / 2 - 20, 40, WHITE);
+
+            for (int key = KEY_ONE; key <= KEY_NINE; key++) {
+                if (IsKeyPressed(key)) {
+                    numberOfElements = key - KEY_ZERO;
+                    keyPressed = true;
+                    break;
+                }
+            }
+
+            if (keyPressed && numberOfElements > 0) {
+                if (head != NULL) {
+                    free(head);
+                    head = NULL;
+                }
+                create_listebid(&head, numberOfElements);
+                displayList = false;
+            }
+
+            if (returnToMenu && IsKeyPressed(KEY_M)) {
+                displayMenu = true;
+                keyPressed = false;
+                returnToMenu = true;
+            }
         }
+
+        if (!displayMenu && !displayList) {
+            drawDoublyLinkedList(head);
+        }
+            
+            
 
         EndDrawing();
     }
