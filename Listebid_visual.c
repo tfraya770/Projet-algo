@@ -46,16 +46,51 @@ void affiche_listebid(liste *tete) {
     }
 }
 
+void delet(liste** tete,int pos,int n){
+liste*p;
+p=*tete;
+    if(pos==1){
+
+ *tete=p->suiv;
+    if(p->suiv!=NULL){
+    p->suiv->pred=NULL;}
+    free(p);
+    }
+    else{if(pos==n){
+        while((p->suiv)!=NULL){
+            p=p->suiv;}
+            p->pred->suiv=NULL;
+            free(p);
+    }
+
+        else{
+        while (p->suiv!=NULL&&pos!=1)
+        {p=p->suiv;
+                pos=pos-1;
+            }
+            if(pos==1){
+                (p->pred)->suiv=p->suiv;
+                (p->suiv)->pred=p->pred;
+                free(p);
+            }
+        }
+    }
+}
 int main() {
     liste *head = NULL;
     int n;
-
+int position;
     printf("Enter the number of elements: ");
     scanf("%d", &n); 
     srand(time(NULL));
 
     create_listebid(&head, n);
     affiche_listebid(head);
-
+    /*************************/
+  printf("\n Enter the position that you need to delet: ");
+    scanf("%d", &position);
+    delet(&head,position,n);
+    affiche_listebid(head);
+    /***********************/
     return 0;
 }
