@@ -89,6 +89,28 @@ while (p->suiv!=NULL)
 return false;
 }
 
+void Sorting(liste*tete){
+liste*p;
+liste*q;
+int x;
+if (tete!=NULL){
+p=tete;
+while (p->suiv!=NULL)
+{   q=p->suiv;
+    while ((q!=NULL))
+    {
+    if ((q->info )<(p->info))
+    {x=p->info;
+   p->info= q->info;
+   q->info=x;
+   }
+   q=q->suiv;
+
+}
+p=p->suiv;
+}
+}
+}
 
 
 int main() {
@@ -113,5 +135,7 @@ bool t;
     t=recherch(head,var);
     printf("\n %d",t);
     /**************************/
+    Sorting(head);
+      affiche_listebid(head);
     return 0;
 }
