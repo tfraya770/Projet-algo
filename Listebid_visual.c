@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
+#include <stdbool.h>
 typedef struct liste liste;
 struct liste {
     int info;
@@ -76,10 +77,25 @@ p=*tete;
         }
     }
 }
+
+bool recherch(liste *tete ,int var){
+liste*p;
+p=tete;
+while (p->suiv!=NULL)
+{
+    if(p->info=var) return true;
+   else  p=p->suiv;
+}
+return false;
+}
+
+
+
 int main() {
     liste *head = NULL;
-    int n;
+    int n,var;
 int position;
+bool t;
     printf("Enter the number of elements: ");
     scanf("%d", &n); 
     srand(time(NULL));
@@ -92,5 +108,10 @@ int position;
     delet(&head,position,n);
     affiche_listebid(head);
     /***********************/
+ printf("\n Enter the valeure that you need to recherch: ");
+    scanf("%d", &var);
+    t=recherch(head,var);
+    printf("\n %d",t);
+    /**************************/
     return 0;
 }
