@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
+#include<stdbool.h>
 #include "raylib.h"
 #define MAX_OPTIONS 6
 #define BOX_WIDTH 60
@@ -67,6 +68,18 @@ void drawDoublyLinkedList(liste *tete) {
         tete = tete->suiv;
     }
 }
+/***************8*/
+bool recherch(liste *tete ,int var){
+liste*p;
+p=tete;
+while (p->suiv!=NULL)
+{
+    if(p->info=var) return true;
+   else  p=p->suiv;
+}
+return false;
+}
+/*****************/
 int main(void) {
    
     const int screenWidth = 1200;
@@ -82,7 +95,10 @@ liste *head = NULL;
 
     int  numberOfElements= 0;
    bool keyPressed = false;
-
+/*****************/
+bool search;
+int vaSearch;
+/******************/
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -114,6 +130,16 @@ liste *head = NULL;
                     displayList = true;
                     returnToMenu = true;
                 }
+                /**********************/
+                else if (selectedOption == 1) {
+                    displayMenu = false;
+                    displayList = true;
+                    returnToMenu = true;
+                     printf("Enter the value to search: ");
+                     scanf("%d", &vaSearch);
+                    search=recherch(head ,vaSearch);
+                }
+                /*************************/
                  else if (selectedOption == 5) {
                     CloseWindow();
                     return 0;
