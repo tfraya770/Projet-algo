@@ -50,13 +50,23 @@ void affiche_listebid(liste *tete) {
         p = p->suiv;
     }
 }
-void drawDoublyLinkedList(liste *tete) {
+void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
     int posX = 100;
     int posY = 200;
+    /*********/int pos=1;
     while (tete != NULL) {
         DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, PINK);
         DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK);
         DrawText(TextFormat("%d", tete->info), posX + 10, posY + 10, 20, BLACK);
+        /********************8*/
+        if (tete->info == highlightedV) {
+            DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, RED);
+        }
+
+        if (pos  == highlightedPos) {
+            DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, GREEN);
+        }
+        /**************8******/
         if (tete->suiv != NULL) {
             DrawLine(posX + BOX_WIDTH, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, BLACK);
             DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 5},
@@ -80,6 +90,61 @@ while (p->suiv!=NULL)
 return false;
 }
 /*****************/
+void delet(liste** tete,int pos,int n){
+liste*p;
+p=*tete;
+    if(pos==1){
+
+ *tete=p->suiv;
+    if(p->suiv!=NULL){
+    p->suiv->pred=NULL;}
+    free(p);
+    }
+    else{if(pos==n){
+        while((p->suiv)!=NULL){
+            p=p->suiv;}
+            p->pred->suiv=NULL;
+            free(p);
+    }
+
+        else{
+        while (p->suiv!=NULL&&pos!=1)
+        {p=p->suiv;
+                pos=pos-1;
+            }
+            if(pos==1){
+                (p->pred)->suiv=p->suiv;
+                (p->suiv)->pred=p->pred;
+                free(p);
+            }
+        }
+    }
+}
+
+/***********************/
+void Sorting(liste*tete){
+liste*p;
+liste*q;
+int x;
+if (tete!=NULL){
+p=tete;
+while (p->suiv!=NULL)
+{   q=p->suiv;
+    while ((q!=NULL))
+    {
+    if ((q->info )<(p->info))
+    {x=p->info;
+   p->info= q->info;
+   q->info=x;
+   }
+   q=q->suiv;
+
+}
+p=p->suiv;
+}
+}
+}
+/*************************/
 int main(void) {
    
     const int screenWidth = 1200;
@@ -96,8 +161,11 @@ liste *head = NULL;
     int  numberOfElements= 0;
    bool keyPressed = false;
 /*****************/
-bool search;
-int vaSearch;
+    bool search;
+    int vaSearch;
+    int pos;
+    int highlightedV ; 
+    int highlightedPos; 
 /******************/
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -131,13 +199,20 @@ int vaSearch;
                     returnToMenu = true;
                 }
                 /**********************/
-                else if (selectedOption == 1) {
-                    displayMenu = false;
-                    displayList = true;
-                    returnToMenu = true;
+                if (selectedOption == 1) {
                      printf("Enter the value to search: ");
                      scanf("%d", &vaSearch);
-                    search=recherch(head ,vaSearch);
+                     highlightedV=recherch(head ,vaSearch);
+                }
+                if (selectedOption == 3) {
+                     printf("Enter the position to delete: ");
+                     scanf("%d", &pos);
+                     delete(&head, pos);
+                      highlightedPos = pos;
+                }
+                if (selectedOption == 4) {
+           
+                      sortList(head);
                 }
                 /*************************/
                  else if (selectedOption == 5) {
@@ -181,7 +256,7 @@ else if (displayList) {
         }
 
         if (!displayMenu && !displayList) {
-            drawDoublyLinkedList(head);
+            drawDoublyLinkedList(head,highlightedV,highlightedPos);
         }
             
             
