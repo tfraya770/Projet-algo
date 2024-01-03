@@ -80,12 +80,11 @@ void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
 }
 /***************8*/
 bool recherch(liste *tete ,int var){
-liste*p;
-p=tete;
-while (p->suiv!=NULL)
+liste*p=tete;
+while (p!=NULL)
 {
-    if(p->info=var) return true;
-   else  p=p->suiv;
+    if(p->info=var) {return true;}
+   else  {p=p->suiv;}
 }
 return false;
 }
