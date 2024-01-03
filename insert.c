@@ -112,7 +112,6 @@ void ajouterPosition(liste **tete, int val, int position) {
     }
 }
 
-
 int main() {
     liste *head = NULL;
     int n;
