@@ -90,7 +90,7 @@ while (p->suiv!=NULL)
 return false;
 }
 /*****************/
-void delet(liste** tete,int pos,int n){
+void delet(liste** tete,int pos){
 liste*p;
 p=*tete;
     if(pos==1){
@@ -100,26 +100,19 @@ p=*tete;
     p->suiv->pred=NULL;}
     free(p);
     }
-    else{if(pos==n){
-        while((p->suiv)!=NULL){
-            p=p->suiv;}
-            p->pred->suiv=NULL;
-            free(p);
-    }
-
-        else{
-        while (p->suiv!=NULL&&pos!=1)
-        {p=p->suiv;
-                pos=pos-1;
-            }
-            if(pos==1){
+      else{
+         while (p!=NULL&&pos!=1){
+               p=p->suiv;
+              pos=pos-1;
+           }
+             if(pos==1){
                 (p->pred)->suiv=p->suiv;
                 (p->suiv)->pred=p->pred;
                 free(p);
-            }
+              }
         }
     }
-}
+
 
 /***********************/
 void Sorting(liste*tete){
@@ -202,17 +195,25 @@ liste *head = NULL;
                 if (selectedOption == 1) {
                      printf("Enter the value to search: ");
                      scanf("%d", &vaSearch);
-                     highlightedV=recherch(head ,vaSearch);
+                     bool search =recherch(head ,vaSearch);
+                        if (search) {
+                                 printf("Value %d found in the list!\n", recherch);
+                                 highlightedV = recherch;
+                             }
+                        else {
+                                 printf("Value %d not found in the list.\n", recherch);
+                                 highlightedV= 0;
+                             }
                 }
                 if (selectedOption == 3) {
                      printf("Enter the position to delete: ");
                      scanf("%d", &pos);
-                     delete(&head, pos);
+                     delet(&head,pos);
                       highlightedPos = pos;
                 }
                 if (selectedOption == 4) {
            
-                      sortList(head);
+                      Sorting(head);
                 }
                 /*************************/
                  else if (selectedOption == 5) {
