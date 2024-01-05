@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
+#include<stdbool.h>
 #include "raylib.h"
 
 #define MAX_OPTIONS 5
@@ -50,6 +51,7 @@ void affiche_listebid(liste *tete) {
         p = p->suiv;
     }
 }
+<<<<<<< HEAD
 void ajouterDebut(liste **tete, int val) {
      liste *nouv = NULL;
     nouv = malloc(sizeof(liste));
@@ -137,6 +139,25 @@ void drawDoublyLinkedList(liste *tete) {
 
         DrawLine(posX + lineSpacing, posY, posX + lineSpacing, posY + BOX_HEIGHT, BLACK);
         DrawLine(posX + lineSpacing * 2, posY, posX + lineSpacing * 2, posY + BOX_HEIGHT, BLACK);
+=======
+void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
+    int posX = 100;
+    int posY = 200;
+    /*********/int pos=1;
+    while (tete != NULL) {
+        DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, PINK);
+        DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK);
+        DrawText(TextFormat("%d", tete->info), posX + 10, posY + 10, 20, BLACK);
+        /********************8*/
+        if (tete->info == highlightedV) {
+            DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, RED);
+        }
+
+        if (pos  == highlightedPos) {
+            DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, GREEN);
+        }
+        /**************8******/
+>>>>>>> e39f73dacc6f1931cbe04dd07e3d2a9592b742dc
         if (tete->suiv != NULL) {
             DrawLine(posX + BOX_WIDTH - 10, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, BLACK);
             DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 30},
@@ -165,7 +186,69 @@ void drawDoublyLinkedList(liste *tete) {
         tete = tete->suiv;
     }
 }
+<<<<<<< HEAD
 
+=======
+/***************8*/
+bool recherch(liste *tete ,int var){
+liste*p=tete;
+while (p!=NULL)
+{
+    if(p->info=var) {return true;}
+   else  {p=p->suiv;}
+}
+return false;
+}
+/*****************/
+void delet(liste** tete,int pos){
+liste*p;
+p=*tete;
+    if(pos==1){
+
+ *tete=p->suiv;
+    if(p->suiv!=NULL){
+    p->suiv->pred=NULL;}
+    free(p);
+    }
+      else{
+         while (p!=NULL&&pos!=1){
+               p=p->suiv;
+              pos=pos-1;
+           }
+             if(pos==1){
+                (p->pred)->suiv=p->suiv;
+                (p->suiv)->pred=p->pred;
+                free(p);
+              }
+        }
+    }
+
+
+/***********************/
+void Sorting(liste*tete){
+liste*p;
+liste*q;
+int x;
+if (tete!=NULL){
+p=tete;
+while (p->suiv!=NULL)
+{   q=p->suiv;
+    while ((q!=NULL))
+    {
+    if ((q->info )<(p->info))
+    {x=p->info;
+   p->info= q->info;
+   q->info=x;
+   }
+   q=q->suiv;
+
+}
+p=p->suiv;
+}
+}
+}
+/*************************/
+>>>>>>> e39f73dacc6f1931cbe04dd07e3d2a9592b742dc
 int main(void) {
    //window dimensions
     const int screenWidth = 1600;
@@ -183,11 +266,24 @@ liste *head = NULL;
      bool displayMenu = true;
     bool displayList = false;
      bool returnToMenu = false;
+<<<<<<< HEAD
      bool displayinsert=false;
      bool displayText=false;
      bool keyPressed = false;
     bool numberAllowed=false;
 
+=======
+
+    int  numberOfElements= 0;
+   bool keyPressed = false;
+/*****************/
+    bool search;
+    int vaSearch;
+    int pos;
+    int highlightedV ; 
+    int highlightedPos; 
+/******************/
+>>>>>>> e39f73dacc6f1931cbe04dd07e3d2a9592b742dc
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -251,6 +347,31 @@ liste *head = NULL;
                     displayText=true;
 
                 }
+                /**********************/
+                if (selectedOption == 1) {
+                     printf("Enter the value to search: ");
+                     scanf("%d", &vaSearch);
+                     bool search =recherch(head ,vaSearch);
+                        if (search) {
+                                 printf("Value %d found in the list!\n", recherch);
+                                 highlightedV = recherch;
+                             }
+                        else {
+                                 printf("Value %d not found in the list.\n", recherch);
+                                 highlightedV= 0;
+                             }
+                }
+                if (selectedOption == 3) {
+                     printf("Enter the position to delete: ");
+                     scanf("%d", &pos);
+                     delet(&head,pos);
+                      highlightedPos = pos;
+                }
+                if (selectedOption == 4) {
+           
+                      Sorting(head);
+                }
+                /*************************/
                  else if (selectedOption == 5) {
                     CloseWindow();
                     return 0;
@@ -296,7 +417,7 @@ else if (displayList) {
         }
 
         if (!displayMenu && !displayList) {
-            drawDoublyLinkedList(head);
+            drawDoublyLinkedList(head,highlightedV,highlightedPos);
         }
         
 
