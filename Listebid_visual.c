@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 #include "raylib.h"
+
 #define MAX_OPTIONS 5
 #define BOX_WIDTH 120
 #define BOX_HEIGHT 80
@@ -27,7 +28,7 @@ void create_listebid(liste **tete, int nbElmt) {
 
         nouv->pred = NULL;
         nouv->suiv = NULL;
-        nouv->info = rand() % 100; 
+        nouv->info = rand() % 100; //random numbers 
 
         if (*tete == NULL) {
             *tete = nouv;
@@ -130,9 +131,9 @@ void drawDoublyLinkedList(liste *tete) {
     int posY = 200;
     int lineSpacing = BOX_WIDTH / 3;
     while (tete != NULL) {
-        DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, PINK);
-        DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK);
-        DrawText(TextFormat("%d", tete->info), posX + 40, posY + 30, 25, BLACK);
+        DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, RAYWHITE); // nodes drawn as boxes
+        DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK);// vertical line to show the vertical line (suiv and pred)
+        DrawText(TextFormat("%d", tete->info), posX + 40, posY + 30, 25, BLACK);// dispaly info
 
         DrawLine(posX + lineSpacing, posY, posX + lineSpacing, posY + BOX_HEIGHT, BLACK);
         DrawLine(posX + lineSpacing * 2, posY, posX + lineSpacing * 2, posY + BOX_HEIGHT, BLACK);
@@ -166,21 +167,26 @@ void drawDoublyLinkedList(liste *tete) {
 }
 
 int main(void) {
-   
+   //window dimensions
     const int screenWidth = 1600;
     const int screenHeight = 850;
 liste *head = NULL;
-    InitWindow(screenWidth, screenHeight, "doubly linked list");
+    InitWindow(screenWidth, screenHeight, "doubly linked list");//window title
+    
  SetTargetFPS(60);
-    const char* options[MAX_OPTIONS] = { "Create", "Search", "Insert", "Delete", "Sort" };
+    const char* options[MAX_OPTIONS] = { "Create", "Search", "Insert", "Delete", "Sort" };//display main menu 
     int selectedOption = 0;
-    bool displayMenu = true;
+    int  numberOfElements= 0;
+    int newValue; 
+     
+     // bool variables (flags)
+     bool displayMenu = true;
     bool displayList = false;
      bool returnToMenu = false;
      bool displayinsert=false;
- 
-    int  numberOfElements= 0;
-   bool keyPressed = false;
+     bool displayText=false;
+     bool keyPressed = false;
+    bool numberAllowed=false;
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -208,36 +214,41 @@ liste *head = NULL;
             }
 
             if (IsKeyPressed(KEY_ENTER)) {
-                if (selectedOption == 0) {
+                if (selectedOption == 0) {//create
                     displayMenu = false;
                     displayList = true;
                     returnToMenu = true;
+                    displayText=true;
+                    
                 }
-                if (selectedOption==1){
+                if (selectedOption==1){//search
                     displayMenu=false;
                     displayList=true;
                     returnToMenu = true;
+                    displayText=true;
                    
 
                 }
-                if (selectedOption==2){
+                if (selectedOption==2){//insert
                     displayMenu=false;
                     displayList=true;
                     returnToMenu = true;
                     displayinsert=true;
-                     
+                     displayText=true;
 
                 }
-                if (selectedOption==3){
+                if (selectedOption==3){//delete
                     displayMenu=false;
                     displayList=true;
                     returnToMenu = true;
+                    displayText=true;
 
                 }
-                if (selectedOption==4){
+                if (selectedOption==4){//sort
                     displayMenu=false;
                     displayList=true;
                     returnToMenu = true;
+                    displayText=true;
 
                 }
                  else if (selectedOption == 5) {
@@ -246,15 +257,17 @@ liste *head = NULL;
                 }
             }
         }
+
+
+
+
+        //*******************// flags conditions
 else if (displayList) {
-            if (!keyPressed) {
-                DrawText("Enter the number of elements (1-9):", 50, 50, 20, BLACK);
-                DrawText(TextFormat("Number of elements: %d", numberOfElements), 50, 100, 20, BLACK);
-                if (returnToMenu) {
+           displayText=true; //the enter text appear
+           
+ if (!returnToMenu) {
                     DrawText("Press 'M' to return", screenWidth - 240, 20, 20, BLACK);
                 }
-            }
-
 
             for (int key = KEY_ONE; key <= KEY_NINE; key++) {
                 if (IsKeyPressed(key)) {
@@ -277,6 +290,8 @@ else if (displayList) {
                 displayMenu = true;
                 keyPressed = false;
                 returnToMenu = true;
+            displayText=false;
+            displayinsert=false;
             }
         }
 
@@ -284,21 +299,75 @@ else if (displayList) {
             drawDoublyLinkedList(head);
         }
         
-      if (displayinsert ) {
-       
-      displayList=true;
-      drawDoublyLinkedList(head);
-        if (!keyPressed) {
-                DrawText("where do you want to insert", screenWidth /4, screenHeight /4, 20, BLACK);
-                
-                
-                DrawText("Press 'A' to add a node to the end of the list", screenWidth / 4 +20, screenHeight / 4+20, 20, BLACK);
 
-        
-        if (IsKeyPressed(KEY_A)) {
-            ajouterFin(&head, rand() % 100); 
+
+        if (displayText) {//drawing text "enter number of elmnts"
+
+        numberAllowed=false;
+            
+                DrawText("Enter the number of elements (1-9):", 50, 50, 20, BLACK);
+                DrawText(TextFormat("Number of elements: %d", numberOfElements), 50, 100, 20, BLACK);
+                if (returnToMenu) {
+                    DrawText("Press 'M' to return", screenWidth - 240, 20, 20, BLACK);
+                }
+            
         }
+      if (displayinsert ) {
+        returnToMenu=true;
+       if (!numberAllowed){
+        DrawText("Where do you want to insert?", 50, 300, 20, BLACK);
+    DrawText("Press 'A' for the beginning", 50, 330, 20, BLACK);
+    DrawText("Press 'B' for the end", 50, 360, 20, BLACK);
+    DrawText("Press 'C' for a random position", 50, 390, 20, BLACK);
+    
+    DrawText("Enter the number to insert (0-9999999):", 50, 440, 20, BLACK);
+    DrawRectangle(50, 470, 60, 40, LIGHTGRAY);
+    DrawText(TextFormat("%d",newValue), 60, 480, 30, BLACK);
+    int digitCount = 0;
+    for (int key = KEY_ZERO; key <= KEY_NINE; key++) {
+                if (IsKeyPressed(key)) {
+                    int keyPressedValue = key - KEY_ZERO;
+                    if (digitCount < 7) { // Allowing up to 7 digits (0 to 9999999)
+                        newValue= newValue * 10 + keyPressedValue;
+                        digitCount++;
+                    }
+                    break;
+                }
+                if (IsKeyPressed(KEY_BACKSPACE)) {// THE ABILITY TO DELETE A WRONG NUMBER PRESSE
+    
+    if (newValue > 0) {
+        newValue = newValue / 10;
+    }
+}
             }
+       }
+     
+    
+if (IsKeyPressed(KEY_A)) {
+       numberAllowed=true;
+        ajouterDebut(&head,newValue );
+        
+    } else if (IsKeyPressed(KEY_B)) {
+        numberAllowed=true;
+       
+        
+        ajouterFin(&head, newValue);
+        
+    } else if (IsKeyPressed(KEY_C)) {
+      
+         numberAllowed=true;
+        
+        
+        ajouterPosition(&head, newValue, rand() % 8 + 2);// random position from 2 to 9
+        
+    }
+
+    
+    
+
+   
+    
+
       }   
 
       
