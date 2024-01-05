@@ -52,6 +52,7 @@ void affiche_listebid(liste *tete) {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 void ajouterDebut(liste **tete, int val) {
      liste *nouv = NULL;
     nouv = malloc(sizeof(liste));
@@ -143,6 +144,11 @@ void drawDoublyLinkedList(liste *tete) {
 void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
     int posX = 100;
     int posY = 200;
+=======
+void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
+    int posX = 100;
+    int posY = 200;
+>>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
     /*********/int pos=1;
     while (tete != NULL) {
         DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, PINK);
@@ -151,6 +157,20 @@ void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
         /********************8*/
         if (tete->info == highlightedV) {
             DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, RED);
+<<<<<<< HEAD
+=======
+        }
+
+        if (pos  == highlightedPos) {
+            DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, GREEN);
+        }
+        /**************8******/
+        if (tete->suiv != NULL) {
+            DrawLine(posX + BOX_WIDTH, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, BLACK);
+            DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 5},
+                         (Vector2){posX + BOX_WIDTH + 20, posY + BOX_HEIGHT - 5},
+                         (Vector2){posX + BOX_WIDTH + 30, posY + BOX_HEIGHT / 2}, BLACK);
+>>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
         }
 
         if (pos  == highlightedPos) {
@@ -187,8 +207,11 @@ void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
 /***************8*/
 bool recherch(liste *tete ,int var){
 liste*p=tete;
@@ -248,7 +271,10 @@ p=p->suiv;
 }
 }
 /*************************/
+<<<<<<< HEAD
 >>>>>>> e39f73dacc6f1931cbe04dd07e3d2a9592b742dc
+=======
+>>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
 int main(void) {
    //window dimensions
     const int screenWidth = 1600;
@@ -283,7 +309,10 @@ liste *head = NULL;
     int highlightedV ; 
     int highlightedPos; 
 /******************/
+<<<<<<< HEAD
 >>>>>>> e39f73dacc6f1931cbe04dd07e3d2a9592b742dc
+=======
+>>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -317,6 +346,7 @@ liste *head = NULL;
                     displayText=true;
                     
                 }
+<<<<<<< HEAD
                 if (selectedOption==1){//search
                     displayMenu=false;
                     displayList=true;
@@ -347,17 +377,27 @@ liste *head = NULL;
                     displayText=true;
 
                 }
+=======
+>>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
                 /**********************/
                 if (selectedOption == 1) {
                      printf("Enter the value to search: ");
                      scanf("%d", &vaSearch);
                      bool search =recherch(head ,vaSearch);
                         if (search) {
+<<<<<<< HEAD
                                  printf("Value %d found in the list!\n", recherch);
                                  highlightedV = recherch;
                              }
                         else {
                                  printf("Value %d not found in the list.\n", recherch);
+=======
+                                 printf("Value %d found in the list!\n", vaSearch);
+                                 highlightedV = vaSearch;
+                             }
+                        else {
+                                 printf("Value %d not found in the list.\n", vaSearch);
+>>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
                                  highlightedV= 0;
                              }
                 }
