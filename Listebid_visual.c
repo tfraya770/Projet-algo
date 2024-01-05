@@ -196,11 +196,11 @@ liste *head = NULL;
                      scanf("%d", &vaSearch);
                      bool search =recherch(head ,vaSearch);
                         if (search) {
-                                 printf("Value %d found in the list!\n", recherch);
-                                 highlightedV = recherch;
+                                 printf("Value %d found in the list!\n", vaSearch);
+                                 highlightedV = vaSearch;
                              }
                         else {
-                                 printf("Value %d not found in the list.\n", recherch);
+                                 printf("Value %d not found in the list.\n", vaSearch);
                                  highlightedV= 0;
                              }
                 }
