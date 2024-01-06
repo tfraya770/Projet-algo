@@ -50,7 +50,7 @@ bool recherch(liste *tete ,int var){
 liste*p=tete;
 while (p!=NULL)
 {
-    if(p->info=var) {return true;}
+    if(p->info==var) {return true;}
    else  {p=p->suiv;}
 }
 return false;
