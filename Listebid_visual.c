@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 #include "raylib.h"
+#include <stdbool.h>
 
 #define MAX_OPTIONS 5
 #define BOX_WIDTH 120
@@ -50,11 +51,8 @@ void affiche_listebid(liste *tete) {
         p = p->suiv;
     }
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
+
+
 void ajouterDebut(liste **tete, int val) {
      liste *nouv = NULL;
     nouv = malloc(sizeof(liste));
@@ -131,64 +129,18 @@ void drawSingleNode(int posX, int posY, int val) {
     DrawLine(posX + BOX_WIDTH / 3, posY, posX + BOX_WIDTH / 3, posY + BOX_HEIGHT, BLACK);
     DrawLine(posX + BOX_WIDTH / 3 * 2, posY, posX + BOX_WIDTH / 3 * 2, posY + BOX_HEIGHT, BLACK);
 }
+
 void drawDoublyLinkedList(liste *tete) {
-<<<<<<< HEAD
     int posX = 100;
     int posY = 200;
     int lineSpacing = BOX_WIDTH / 3;
     while (tete != NULL) {
-        DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, RAYWHITE); // nodes drawn as boxes
+        DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLUE); // nodes drawn as boxes
         DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK);// vertical line to show the vertical line (suiv and pred)
         DrawText(TextFormat("%d", tete->info), posX + 40, posY + 30, 25, BLACK);// dispaly info
 
         DrawLine(posX + lineSpacing, posY, posX + lineSpacing, posY + BOX_HEIGHT, BLACK);
         DrawLine(posX + lineSpacing * 2, posY, posX + lineSpacing * 2, posY + BOX_HEIGHT, BLACK);
-=======
-void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
-    int posX = 100;
-    int posY = 200;
-=======
-void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
-    int posX = 100;
-    int posY = 200;
->>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
-    /*********/int pos=1;
-    while (tete != NULL) {
-        DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, PINK);
-        DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK);
-        DrawText(TextFormat("%d", tete->info), posX + 10, posY + 10, 20, BLACK);
-        /********************8*/
-        if (tete->info == highlightedV) {
-            DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, RED);
-<<<<<<< HEAD
-=======
-        }
-=======
-    int posX = 100;
-    int posY = 200;
-    int lineSpacing = BOX_WIDTH / 3;
-    while (tete != NULL) {
-        DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, RAYWHITE); // nodes drawn as boxes
-        DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK);// vertical line to show the vertical line (suiv and pred)
-        DrawText(TextFormat("%d", tete->info), posX + 40, posY + 30, 25, BLACK);// dispaly info
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
-
-        DrawLine(posX + lineSpacing, posY, posX + lineSpacing, posY + BOX_HEIGHT, BLACK);
-        DrawLine(posX + lineSpacing * 2, posY, posX + lineSpacing * 2, posY + BOX_HEIGHT, BLACK);
-        if (tete->suiv != NULL) {
-            DrawLine(posX + BOX_WIDTH - 10, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, BLACK);
-            DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 30},
-                         (Vector2){posX + BOX_WIDTH + 20, posY + BOX_HEIGHT - 30},
-                         (Vector2){posX + BOX_WIDTH + 30, posY + BOX_HEIGHT / 2}, BLACK);
-<<<<<<< HEAD
->>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
-        }
-
-        if (pos  == highlightedPos) {
-            DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, GREEN);
-        }
-        /**************8******/
->>>>>>> e39f73dacc6f1931cbe04dd07e3d2a9592b742dc
         if (tete->suiv != NULL) {
             DrawLine(posX + BOX_WIDTH - 10, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, BLACK);
             DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 30},
@@ -200,14 +152,6 @@ void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
              (Vector2){posX + BOX_WIDTH + 10, posY + BOX_HEIGHT / 2 +25},
              (Vector2){posX + BOX_WIDTH + 20, posY + BOX_HEIGHT - 30 +25}, BLACK);
         }
-=======
-        
-             DrawLine(posX, posY + BOX_HEIGHT / 2 + 25, posX - 30, posY + BOX_HEIGHT / 2 + 25, BLACK);
-     DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 30+25},
-             (Vector2){posX + BOX_WIDTH + 10, posY + BOX_HEIGHT / 2 +25},
-             (Vector2){posX + BOX_WIDTH + 20, posY + BOX_HEIGHT - 30 +25}, BLACK);
-        }
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
          else {
             
             DrawLine(posX + BOX_WIDTH -10, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 30, posY + BOX_HEIGHT / 2, BLACK);
@@ -225,27 +169,97 @@ void drawDoublyLinkedList(liste *tete ,int highlightedV, int highlightedPos) {
         tete = tete->suiv;
     }
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
-/***************8*/
-bool recherch(liste *tete ,int var){
-liste*p=tete;
-while (p!=NULL)
-{
-    if(p->info=var) {return true;}
-   else  {p=p->suiv;}
+void SortingWithAnimation(liste *tete) {
+    liste *p;
+    liste *q;
+    int x;
+    bool swapped;
+
+    if (tete != NULL) {
+        p = tete;
+        while (p->suiv != NULL) {
+            q = p->suiv;
+            swapped = false;
+
+            while (q != NULL) {
+                if (q->info < p->info) {
+                    x = p->info;
+                    p->info = q->info;
+                    q->info = x;
+                    swapped = true;
+                }
+                q = q->suiv;
+                
+                // Visualization: draw the list after each swap
+                BeginDrawing();
+                ClearBackground(RAYWHITE);
+                Highlightsort(tete,p,q);
+                EndDrawing();
+
+                usleep(1000000); // Adjust this delay as per your preference (in microseconds)
+            }
+
+            if (!swapped) {
+                break; // If no elements were swapped, the list is already sorted
+            }
+
+            p = p->suiv;
+        }
+    }
 }
-return false;
+
+
+void Highlightsort(liste *tete, liste *p, liste *q) {
+    int posX = 100;
+    int posY = 200;
+    int lineSpacing = BOX_WIDTH / 3;
+    while (tete != NULL) {
+        if (tete == p || tete == q) {
+            DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, YELLOW); // Highlight the nodes being compared to
+        } else {
+            DrawRectangle(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLUE); 
+        }
+
+        DrawRectangleLines(posX, posY, BOX_WIDTH, BOX_HEIGHT, BLACK); // Vertical line to show the vertical line (suiv and pred)
+        DrawText(TextFormat("%d", tete->info), posX + 40, posY + 30, 25, BLACK); // Display info
+
+        DrawLine(posX + lineSpacing, posY, posX + lineSpacing, posY + BOX_HEIGHT, BLACK);
+        DrawLine(posX + lineSpacing * 2, posY, posX + lineSpacing * 2, posY + BOX_HEIGHT, BLACK);
+
+       
+        if (tete->suiv != NULL) {
+            if (tete == p && tete->suiv == q) {
+                DrawLine(posX + BOX_WIDTH - 10, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, RED);
+                DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 30},
+                             (Vector2){posX + BOX_WIDTH + 20, posY + BOX_HEIGHT - 30},
+                             (Vector2){posX + BOX_WIDTH + 30, posY + BOX_HEIGHT / 2}, RED);
+            } else if (tete == q && tete->suiv == p) {
+                DrawLine(posX + BOX_WIDTH - 10, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, RED);
+                DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 30 + 25},
+                             (Vector2){posX + BOX_WIDTH + 10, posY + BOX_HEIGHT / 2 + 25},
+                             (Vector2){posX + BOX_WIDTH + 20, posY + BOX_HEIGHT - 30 + 25}, RED);
+            } else {
+                DrawLine(posX + BOX_WIDTH - 10, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 20, posY + BOX_HEIGHT / 2, BLACK);
+                DrawTriangle((Vector2){posX + BOX_WIDTH + 20, posY + 30},
+                             (Vector2){posX + BOX_WIDTH + 20, posY + BOX_HEIGHT - 30},
+                             (Vector2){posX + BOX_WIDTH + 30, posY + BOX_HEIGHT / 2}, BLACK);
+            }
+        } else {
+            DrawLine(posX + BOX_WIDTH - 10, posY + BOX_HEIGHT / 2, posX + BOX_WIDTH + 30, posY + BOX_HEIGHT / 2, BLACK);
+            DrawTriangle((Vector2){posX + BOX_WIDTH + 30, posY + 30},
+                         (Vector2){posX + BOX_WIDTH + 30, posY + BOX_HEIGHT - 30},
+                         (Vector2){posX + BOX_WIDTH + 40, posY + BOX_HEIGHT / 2}, BLACK);
+        }
+
+        posX += BOX_WIDTH + 40;
+        tete = tete->suiv;
+    }
 }
-/*****************/
-=======
-//***************DELET*****************/
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
+
+
+
+
 void delet(liste** tete,int pos){
 liste*p;
 p=*tete;
@@ -301,14 +315,7 @@ p=p->suiv;
 }
 }
 }
-<<<<<<< HEAD
-/*************************/
-<<<<<<< HEAD
->>>>>>> e39f73dacc6f1931cbe04dd07e3d2a9592b742dc
-=======
->>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
-=======
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
+
 int main(void) {
    //window dimensions
     const int screenWidth = 1600;
@@ -319,36 +326,6 @@ liste *head = NULL;
  SetTargetFPS(60);
     const char* options[MAX_OPTIONS] = { "Create", "Search", "Insert", "Delete", "Sort" };//display main menu 
     int selectedOption = 0;
-<<<<<<< HEAD
-    int  numberOfElements= 0;
-    int newValue; 
-     
-     // bool variables (flags)
-     bool displayMenu = true;
-    bool displayList = false;
-     bool returnToMenu = false;
-<<<<<<< HEAD
-     bool displayinsert=false;
-     bool displayText=false;
-     bool keyPressed = false;
-    bool numberAllowed=false;
-
-=======
-
-    int  numberOfElements= 0;
-   bool keyPressed = false;
-/*****************/
-    bool search;
-    int vaSearch;
-    int pos;
-    int highlightedV ; 
-    int highlightedPos; 
-/******************/
-<<<<<<< HEAD
->>>>>>> e39f73dacc6f1931cbe04dd07e3d2a9592b742dc
-=======
->>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
-=======
     int  numberOfElements= 0;
     int newValue; 
      int deletePosition=0;
@@ -366,7 +343,7 @@ bool displaysearch=false;
 bool valueFound;
 bool displaySearchResult = false;
 bool displaySort=false;
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
+
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -398,74 +375,15 @@ bool displaySort=false;
                     displayList = true;
                     returnToMenu = true;
                     displayText=true;
-<<<<<<< HEAD
-                    
                 }
-<<<<<<< HEAD
-=======
-                    returnToMenu=true;
-                }
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
                 if (selectedOption==1){//search
                     displayMenu=false;
                     displayList=true;
                     returnToMenu = true;
-<<<<<<< HEAD
                     displayText=true;
+                    returnToMenu=true;
                    
 
-                }
-                if (selectedOption==2){//insert
-                    displayMenu=false;
-                    displayList=true;
-                    returnToMenu = true;
-                    displayinsert=true;
-                     displayText=true;
-
-                }
-                if (selectedOption==3){//delete
-                    displayMenu=false;
-                    displayList=true;
-                    returnToMenu = true;
-                    displayText=true;
-
-                }
-                if (selectedOption==4){//sort
-                    displayMenu=false;
-                    displayList=true;
-                    returnToMenu = true;
-                    displayText=true;
-
-                }
-=======
->>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
-                /**********************/
-                if (selectedOption == 1) {
-                     printf("Enter the value to search: ");
-                     scanf("%d", &vaSearch);
-                     bool search =recherch(head ,vaSearch);
-                        if (search) {
-<<<<<<< HEAD
-                                 printf("Value %d found in the list!\n", recherch);
-                                 highlightedV = recherch;
-                             }
-                        else {
-                                 printf("Value %d not found in the list.\n", recherch);
-=======
-                                 printf("Value %d found in the list!\n", vaSearch);
-                                 highlightedV = vaSearch;
-                             }
-                        else {
-                                 printf("Value %d not found in the list.\n", vaSearch);
->>>>>>> 702d076dac16e260bb74c583e57da4d1a710fa12
-                                 highlightedV= 0;
-                             }
-=======
-                    displaysearch=true;
-                    displayText=true;
-                   
-
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
                 }
                 if (selectedOption==2){//insert
                     displayMenu=false;
@@ -481,21 +399,23 @@ bool displaySort=false;
                     returnToMenu = true;
                     displaydelet=true;
                     displayText=true;
+
                 }
                 if (selectedOption==4){//sort
                     displayMenu=false;
                     displayList=true;
                     returnToMenu = true;
-                    displaySort=true;
                     displayText=true;
+                    displaySort=true;
 
                 }
+               
                  else if (selectedOption == 5) {
                     CloseWindow();
                     return 0;
                 }
             }
-        }
+            }
 
 
 
@@ -600,19 +520,13 @@ if (IsKeyPressed(KEY_A)) {
         ajouterPosition(&head, newValue, rand() % 8 + 2);// random position from 2 to 9
         
     }
-<<<<<<< HEAD
 
-    
-    
+      } 
 
-   
-    
+       
 
-      }   
 
-      
-=======
-      }   
+
 if (displaydelet){
 returnToMenu=true;
 if (!numberAllowed) {
@@ -646,6 +560,7 @@ if (!numberAllowed) {
 
 }
       if (displaysearch) {
+        returnToMenu=true;
     if (!numberAllowed) {
         DrawText("Search for a value:", 50, 300, 30, BLACK);
         DrawText("Enter the value to search:", 50, 330, 20, BLACK);
@@ -693,7 +608,7 @@ if (displaySort){
            
 }
 }
->>>>>>> 90800ed241c56a3eea6fe2fc7c7c994d52fcad3e
+
 
         EndDrawing();
     }
