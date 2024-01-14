@@ -353,7 +353,7 @@ bool recherch(liste *tete, int var)
 
 
 /**********SORTING***********************/
-void Sorting(liste *tete)
+/*void Sorting(liste *tete)
 {
     liste *p;
     liste *q;
@@ -377,7 +377,7 @@ void Sorting(liste *tete)
             p = p->suiv;
         }
     }
-}
+}*/
 
 
 
@@ -618,7 +618,7 @@ int main(void)
 
                 numberAllowed = true;
 
-                ajouterPosition(&head, newValue, rand() % 8 + 2); // random position from 2 to 9
+                ajouterPosition(&head, newValue, rand() %9 + 1); // random position from 1 to 9
             }
         }
 
